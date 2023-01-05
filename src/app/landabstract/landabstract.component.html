@@ -1,0 +1,67 @@
+<app-masterheader></app-masterheader>
+<div class="loaders-wrapper" *ngIf="loader">
+	<div class="loader">
+		<div class="loader-clock"></div>
+	</div>
+</div>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">Village-wise Land Abstract (Kendrapada)</h4>                            
+							<div class="table-responsive">
+								<table class="table table-sm table-bordered row-border" id="surveyDatatable" datatable
+									[dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+									<thead>
+										<tr>
+											<th width="6%" rowspan="2">Sl. No.</th>
+											<th rowspan="2">Village Name</th>
+											<th colspan="6" style="text-align: center;">Govt. Land(Ac.)</th>
+											<th rowspan="2">Private (Ac.)</th>
+											<th rowspan="2">Total (Ac.)</th>
+										</tr>
+                                        <tr>
+											<th width="6%">Sl. No.</th>
+											<th>Village Name</th>
+											<th>Govt. Land(Ac.)</th>
+											<th>Private (Ac.)</th>
+											<th>Total (Ac.)</th>
+											<th>Total (Ac.)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>asd</td>
+											<td>asd</td>
+											<td>asf</td>
+											<td>sd</td>
+                                            <td>asd</td>
+											<td>asd</td>
+											<td>asf</td>
+											<td>sd</td>
+											<td>sd</td>
+											<td>sd</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>

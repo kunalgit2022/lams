@@ -1,0 +1,182 @@
+<app-masterheader></app-masterheader>
+
+<!-- <div class="loaders-wrapper" *ngIf="loader">
+	<div class="loader">
+		<div class="loader-clock"></div>
+	</div>
+</div> -->
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<!-- <h4 class="custom-title">Dashboard</h4> -->
+							<div class="row">
+								<div class="col-md-1 mt-1">
+									<label>Select Phase :</label>
+								</div>
+								<div class="col-md-2">
+									<!-- <select id="multiple-checkboxes" multiple="multiple"  (change)="phaseType($event)">
+										<option>Phase 1</option>
+										<option>Phase 2</option>
+									</select> -->
+									<select class="form-control form-control-sm" [(ngModel)]="phaseType"
+										(change)="onPhaseSelectAll($event)">
+										<option value="All">All Phase</option>
+										<option value="Phase 1">Phase 1</option>
+										<option value="Phase 2">Phase 2</option>
+									</select>
+								</div>
+								<div class="col-md-1 mt-1">
+									<label>Select Unit :</label>
+								</div>
+								<div class="col-md-2">
+									<div class="radio">
+										<input label="Acre" type="radio" id="Acre" name="gender" value="a" checked="true"
+											[(ngModel)]="ahType" (change)="onAcreHectareSelectAll($event)">
+										<input label="Hectare" type="radio" id="Hectare" name="gender" value="h"
+											[(ngModel)]="ahType" (change)="onAcreHectareSelectAll($event)">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-7">
+					<div class="card min-hgt-1">
+						<div class="card-body">
+							<div id="pieChart"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="card min-hgt-1">
+						<div class="card-body">
+							<h4 *ngIf="ahType==='a'" class="custom-title">Village wise Land Distribution <small>&nbsp;(units in Acre)</small>
+							</h4>
+							<h4 *ngIf="ahType==='h'" class="custom-title">Village wise Land Distribution <small>&nbsp;(units in Hectare)</small>
+							</h4>
+							<div class="table-responsive">
+								<table class="table table-sm row-border mb-0">
+									<thead>
+										<tr>
+											<th width="6%">Sl.</th>
+											<th>Village</th>
+											<th class="text-right">Non Forest Govt. Land</th>
+											<th class="text-right">Private Land</th>
+											<th class="text-right">Forest Land</th>
+											<th class="text-right">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let item of VillageWiseLandAbstractData;index as i">
+											<td class="text-secondary">{{i+1}}</td>
+											<td class="text-secondary">{{item.village}}</td>
+											<td class="text-right text-secondary">{{item.govtarea}}</td>
+											<td class="text-right text-secondary">{{item.pvtarea}}</td>
+											<td class="text-right text-secondary">{{item.forarea}}</td>
+											<td class="text-right text-secondary"><strong>{{item.totarea}}</strong></td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="2"><strong>Total</strong></td>
+											<td class="text-right"><strong>{{govtLand.toFixed(2)}}</strong>
+											</td>
+											<td class="text-right">
+												<strong>{{privateLand.toFixed(2)}}</strong>
+											</td>
+											<td class="text-right">
+												<strong>{{forestLand.toFixed(2)}}</strong>
+											</td>
+											<td class="text-right"><strong>{{villageWiseTotalAc.toFixed(2)}}</strong>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-7">
+					<div class="card min-hgt-2">
+						<div class="card-body">
+							<div id="stackChart"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="card min-hgt-2">
+						<div class="card-body">
+							<h4 *ngIf="ahType==='a'" class="custom-title">Land Class Progress Report <small>&nbsp;(units in Acre)</small>
+							</h4>
+							<h4 *ngIf="ahType==='h'" class="custom-title">Land Class Progress Report <small>&nbsp;(units in Hectare)</small>
+							</h4>
+							<div class="table-responsive">
+								<table class="table table-sm row-border mb-0">
+									<thead>
+										<tr>
+											<th>Land Class</th>
+											<th class="text-right">Not Started</th>
+											<th class="text-right">Initial Stage</th>
+											<th class="text-right">Processing Stage</th>
+											<th class="text-right">Final Stage</th>
+											<th class="text-right">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let item2 of stackColumnData">
+											<td class="text-secondary">{{item2.landclass}}</td>
+											<td class="text-right text-secondary">{{item2.notstarted}}</td>
+											<td class="text-right text-secondary">{{item2.initial}}</td>
+											<td class="text-right text-secondary">{{item2.processing}}</td>
+											<td class="text-right text-secondary">{{item2.finalst}}</td>
+											<td class="text-right text-secondary"><strong>{{item2.total}}</strong></td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="1"><strong>Total</strong></td>
+											<td class="text-right">
+												<strong>{{notStarted.toFixed(2)}}</strong>
+											</td>
+											<td class="text-right">
+												<strong>{{initialStage.toFixed(2)}}</strong>
+											</td>
+											<td class="text-right">
+												<strong>{{processingStage.toFixed(2)}}</strong>
+											</td>
+											<td class="text-right">
+												<strong>{{finalStage.toFixed(2)}}</strong>
+											</td>
+											<td class="text-right"><strong>{{landClassWiseTotalAc.toFixed(2)}}</strong>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>

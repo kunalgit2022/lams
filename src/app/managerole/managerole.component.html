@@ -1,0 +1,250 @@
+<app-masterheader></app-masterheader>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">
+								Role Management
+								<button type="button" data-toggle="modal" data-target="#modalCreateRole"
+									class="btn btn-sm btn-indigo pull-right"><i class="fa fa-plus">&nbsp;</i>Add
+									Role</button>
+							</h4>
+
+							<div class="table-responsive">
+								<table class="table table-sm table-bordered row-border mb-0" id="manageRoleDatatable"
+									[dtTrigger]="dtTrigger" [dtOptions]="dtOptions" datatable>
+									<thead>
+										<tr>
+											<th width="7%">Sl. No.</th>
+											<th>Roll Name</th>
+											<th width="9%">Permissions</th>
+											<th width="8%">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let element of rollList,index as i">
+											<td>{{i+1}}</td>
+											<td>{{element.roleName}}</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-green btn-icon"
+													data-toggle-second="tooltip" title="View" data-toggle="modal"
+													data-target="#modalViewRole"
+													(click)="showAllPermission(element.id)">
+													<i class="fa fa-eye"></i>
+												</button>
+											</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-indigo btn-icon"
+													data-toggle-second="tooltip" title="Edit" data-toggle="modal"
+													data-target="#modalEditRole"
+													(click)="editRolePermission(element,element.id)">
+													<i class="fa fa-edit"></i>
+												</button>
+												<button type="button" class="btn btn-sm btn-red btn-icon"
+													data-toggle-second="tooltip" title="Delete"
+													(click)="deletRole(element.id)">
+													<i class="fa fa-trash"></i>
+												</button>
+											</td>
+										</tr>
+										<!-- <tr>
+											<td>2</td>
+											<td>Field Executive</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-green btn-icon"
+													data-toggle-second="tooltip" title="View" data-toggle="modal"
+													data-target="#modalViewRole">
+													<i class="fa fa-eye"></i>
+												</button>
+											</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-indigo btn-icon"
+													data-toggle-second="tooltip" title="Edit" data-toggle="modal"
+													data-target="#modalEditRole">
+													<i class="fa fa-edit"></i>
+												</button>
+												<button type="button" class="btn btn-sm btn-red btn-icon"
+													data-toggle-second="tooltip" title="Delete">
+													<i class="fa fa-trash"></i>
+												</button>
+											</td>
+										</tr> -->
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>
+
+<!-- Modal Create Role -->
+<div class="modal fade" id="modalCreateRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Create Role</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<form [formGroup]="Addrole">
+					<div class="row form-group">
+						<div class="col-md-4 mt-2">
+							<label>Enter Role :</label>
+						</div>
+						<div class="col-md-7">
+							<input type="text" name="role_name" class="form-control" formControlName="roleName"
+								placeholder="Enter Role">
+							<div class="custom-validate"
+								*ngIf="Addrole.controls['roleName'].invalid && (Addrole.controls['roleName'].dirty || Addrole.controls ['roleName'].touched)">
+								<div *ngIf="Addrole.controls['roleName'].hasError('required')">
+									<small class="text-danger">Role name is required </small>
+								</div>
+								<div *ngIf="Addrole.controls['roleName'].hasError('pattern')">
+									<small class="text-danger">Role name is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1 mt-2">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="Role name is Contain Small and Capital letter with (. , _ ,-)"><i
+									class="fa fa-circle-info"></i></a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<h5 class="custom-title">Assign Permissions</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 form-group" *ngFor="let items of allPermissionLink">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="{{'createCheckbox'+items.id}}"
+									formControlName="permission" value="option1"
+									(click)="findpermission($event,items.id)">
+								<label class="form-check-label" for="{{'createCheckbox'+items.id}}"
+									value=(items.id)>{{items.pname}}</label>
+							</div>
+						</div>
+
+
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="btn btn-indigo" (click)="AddRole()"
+								[disabled]="disableCreat || Addrole.invalid">Create</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Edit Role -->
+<div class="modal fade" id="modalEditRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Edit Role</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="editroleform">
+					<div class="row form-group">
+						<div class="col-md-4 mt-2">
+							<label>Enter Role :</label>
+						</div>
+						<div class="col-md-7">
+							<input type="text" class="form-control" formControlName="editrole" placeholder="Enter Role">
+						</div>
+						<div class="col-md-1 mt-2">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="Role name is Contain Small and Capital letter with (. , _ ,-)"><i class="fa fa-circle-info"></i></a>
+						</div>
+						<div class="custom-validate"
+							*ngIf="editroleform.controls['editrole'].invalid && (editroleform.controls['editrole'].dirty || editroleform.controls ['editrole'].touched)">
+							<div *ngIf="editroleform.controls['editrole'].hasError('required')">
+								<small class="text-danger">role is required </small>
+							</div>
+							<div *ngIf="editroleform.controls['editrole'].hasError('pattern')">
+								<small class="text-danger">role is invalid.</small>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<h5 class="custom-title">Assign Permissions</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 form-group" *ngFor="let items of allPermissionLink">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="{{'editCheckbox'+items.id}}"
+									[value]=items.pname (click)="getUpdatedPermission($event,items.id)">
+								<label class="form-check-label"
+									for="{{'editCheckbox'+items.id}}">{{items.pname}}</label>
+							</div>
+						</div>
+
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="btn btn-green" (click)="updateRoleForm()">Update</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal View Role -->
+<div class="modal fade" id="modalViewRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">View Permission</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="row" *ngFor="let items of permissionRole">
+						<div class="col-md-12">
+							<i class="fa fa-check text-success">&nbsp;</i>
+							<label>{{items.permissionname}}</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

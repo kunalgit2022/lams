@@ -1,0 +1,221 @@
+
+<app-masterheader></app-masterheader>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">
+								Trouble Tickets
+							</h4>
+							<form>
+								<div class="row">
+									<div class="col-md-2">
+										<label>Phase</label>
+										<select class="form-control">
+											<option selected="selected">-- Select Phase --</option>
+											<option>Phase 1</option>
+											<option>Phase 2</option>
+										</select>
+									</div>
+									<div class="col-md-2">
+										<label>Village</label>
+										<select class="form-control">
+											<option selected="selected">-- Select Village --</option>
+											<option>Duhuria</option>
+											<option>Nipania</option>
+										</select>
+									</div>
+									<div class="col-md-2">
+										<label>Land Class</label>
+										<select class="form-control">
+											<option selected="selected">-- Select Land Class --</option>
+											<option>Leasable</option>
+											<option>Communal</option>
+											<option>Communal</option>
+											<option>Departmental</option>
+											<option>Private</option>
+											<option>Forest</option>
+										</select>
+									</div>
+									<div class="col-md-2">
+										<label>Date From</label>
+										<div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
+										    <input class="form-control" type="text" />
+										    <span class="input-group-addon"><i class="fa fa-calendar-days"></i></span>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<label>Date To</label>
+										<div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
+										    <input class="form-control" type="text" />
+										    <span class="input-group-addon"><i class="fa fa-calendar-days"></i></span>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<button type="button" class="btn btn-label btn-green"><i class="fa fa-search">&nbsp;</i>Search</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="table-responsive">
+								<table class="table table-sm table-bordered row-border mb-0" id="troubleTicketsDatatable">
+									<thead>
+										<tr>
+											<th width="7%">Sl. No.</th>
+											<th>Ticket No.</th>
+											<th>Phase</th>
+											<th>Village</th>
+											<th>Land Class</th>
+											<th>Lease Case</th>
+											<th>Proposed Area (Acre)</th>
+											<th>Current Stage</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>4111578122</td>
+											<td>Phase 1</td>
+											<td>Banamali Pur</td>
+											<td>Leasable</td>
+											<td class="text-right">01/42</td>
+											<td class="text-right">4.75</td>
+											<td>Ongoing</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-green btn-icon" data-toggle-second="tooltip" title="View Ticket" data-toggle="modal" data-target="#modalViewTicket">
+													<i class="fa fa-eye"></i>
+												</button>
+											</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>2411502455</td>
+											<td>Phase 1</td>
+											<td>Duhuria</td>
+											<td>Leasable</td>
+											<td class="text-right">08/15</td>
+											<td class="text-right">3.42</td>
+											<td>Ongoing</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-green btn-icon" data-toggle-second="tooltip" title="View Ticket" data-toggle="modal" data-target="#modalViewTicket">
+													<i class="fa fa-eye"></i>
+												</button>
+											</td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>275514257</td>
+											<td>Phase 1</td>
+											<td>Nipania</td>
+											<td>Leasable</td>
+											<td class="text-right">11/62</td>
+											<td class="text-right">2.68</td>
+											<td>Ongoing</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-green btn-icon" data-toggle-second="tooltip" title="View Ticket" data-toggle="modal" data-target="#modalViewTicket">
+													<i class="fa fa-eye"></i>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>
+
+<!-- Modal View Ticket -->
+<div class="modal fade" id="modalViewTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">View Ticket</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="mb-2">
+					<span class="badge rounded-pill badge-dark"><strong>Ticket No. : </strong>4111578122</span>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="card-note">
+							<label>Notes</label>
+							<p class="mb-0">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="p-2">
+							<p class="mb-0"><strong>AM/NS Head</strong></p>
+							<p class="mb-0 text-muted"><small>21.11.2022</small></p>
+							<hr>
+							<p class="mb-0">View Supporting Document : <button type="button" class="btn btn-sm btn-orange btn-icon"><i class="fa fa-file-pdf"></i></button></p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<textarea class="form-control" rows="5" placeholder="Write Action Note"></textarea>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4 mt-2">
+						<label>Upload Supporting Document (if any) :</label>
+					</div>
+					<div class="col-md-8">
+						<input type="file" class="form-control" placeholder="Upload Supporting Document">
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4 mt-2">
+						<label>Status :</label>
+					</div>
+					<div class="col-md-8">
+						<select class="form-control">
+							<option selected="selected">-- Select Status --</option>
+							<option>Ongoing</option>
+							<option>Completed</option>
+							<option>Suspended</option>
+						</select>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<button class="btn btn-green">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,366 @@
+<app-masterheader></app-masterheader>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">
+								User Management
+								<button type="button" data-toggle="modal" data-target="#modalCreateUser"
+									class="btn btn-sm btn-indigo pull-right"><i class="fa fa-plus">&nbsp;</i>Add
+									User</button>
+							</h4>
+
+							<div class="table-responsive">
+								<table class="table table-sm table-bordered row-border mb-0" id="manageUserDatatable"
+									[dtTrigger]="dtTrigger" [dtOptions]="dtOptions" datatable>
+									<thead>
+										<tr>
+											<th width="7%">Sl. No.</th>
+											<th>Name</th>
+											<th>Mobile</th>
+											<th>Email ID</th>
+											<th>Designation</th>
+											<th>Department</th>
+											<th>Role</th>
+											<th>Created</th>
+											<th>Updated</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let items of AllUser, index as i">
+											<td>{{i+1}}</td>
+											<td>{{items.name}}</td>
+											<td>{{items.mobile}}</td>
+											<td>{{items.email}}</td>
+											<td>{{items.desg}}</td>
+											<td>{{items.dept}}</td>
+											<td>{{items.role}}</td>
+											<td>{{items.createdat | date: 'dd/MM/yyyy'}}</td>
+											<td>{{items.updatedat | date: 'dd/MM/yyyy'}}</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-indigo btn-icon"
+													data-toggle-second="tooltip" title="Edit" data-toggle="modal"
+													data-target="#modalEditUser" (click)="editUser(items.id)">
+													<i class="fa fa-edit"></i>
+												</button>
+												<button type="button" class="btn btn-sm btn-red btn-icon"
+													data-toggle-second="tooltip" title="Delete" (click)="deletUser(items.id)">
+													<i class="fa fa-trash"></i>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>
+
+<!-- Modal Create User -->
+<div class="modal fade" id="modalCreateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="manageUser" (ngSubmit)="createuser()">
+					<div class="row">
+						<div class="col-md-5 form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" formControlName="name" placeholder="Enter Name">
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['name'].invalid && (manageUser.controls['name'].dirty || manageUser.controls ['name'].touched)">
+								<div *ngIf="manageUser.controls['name'].hasError('required')">
+									<small class="text-danger">name is required </small>
+								</div>
+								<div *ngIf="manageUser.controls['name'].hasError('pattern')">
+									<small class="text-danger">name is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1 mt-4-5">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="Name contain Samll & capital Character"><i class="fa fa-circle-info"></i></a>
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Mobile No.</label>
+							<input type="number" class="form-control" formControlName="Mobile"
+								placeholder="Enter Mobile No.">
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['Mobile'].invalid && (manageUser.controls['Mobile'].dirty || manageUser.controls ['Mobile'].touched)">
+								<div *ngIf="manageUser.controls['Mobile'].hasError('required')">
+									<small class="text-danger">Mobile is required </small>
+								</div>
+								<div *ngIf="manageUser.controls['Mobile'].hasError('pattern')">
+									<small class="text-danger">Mobile is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1">
+
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Email ID</label>
+							<input type="email" class="form-control" formControlName="Email"
+								placeholder="Enter Email ID">
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['Email'].invalid && (manageUser.controls['Email'].dirty || manageUser.controls ['Email'].touched)">
+								<div *ngIf="manageUser.controls['Email'].hasError('required')">
+									<small class="text-danger">Email is required </small>
+								</div>
+								<div *ngIf="manageUser.controls['Email'].hasError('pattern')">
+									<small class="text-danger">Email is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1">
+
+						</div>
+						<div class="col-md-5 form-group">
+							<label>User ID</label>
+							<input type="text" class="form-control" formControlName="UID" placeholder="Enter User ID">
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['UID'].invalid && (manageUser.controls['UID'].dirty || manageUser.controls ['UID'].touched)">
+								<div *ngIf="manageUser.controls['UID'].hasError('required')">
+									<small class="text-danger">User id is required </small>
+								</div>
+								<div *ngIf="manageUser.controls['UID'].hasError('pattern')">
+									<small class="text-danger">User id is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1 mt-4-5">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="User ID contain Alphanumeric Character"><i class="fa fa-circle-info"></i></a>
+						</div>
+						<div class="col-md-5 form-group" id="show_hide_password_4">
+							<label>Password</label>
+							<input type="password" class="form-control" formControlName="Password"
+								placeholder="Enter Password" id="password4">
+							<div class="input-group-addon">
+								<a href="javascript:void(0)" class="text-muted"><i class="fa fa-eye-slash"
+										aria-hidden="true"></i></a>
+							</div>
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['Password'].invalid && (manageUser.controls['Password'].dirty || manageUser.controls ['Password'].touched)">
+								<div *ngIf="manageUser.controls['Password'].hasError('required')">
+									<small class="text-danger">Password id is required </small>
+								</div>
+								<div *ngIf="manageUser.controls['Password'].hasError('pattern')">
+									<small class="text-danger">Password id is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1 mt-4-5">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="Password contain Alphanumeric & special Symbol(@#^&),length having 6-20 Character"><i
+									class="fa fa-circle-info"></i></a>
+						</div>
+						<div class="col-md-5 form-group" id="show_hide_password_5">
+							<label>Confirm Password</label>
+							<input type="password" class="form-control" formControlName="CPassword"
+								placeholder="Confirm Password" id="password5">
+							<div class="input-group-addon">
+								<a href="javascript:void(0)" class="text-muted"><i class="fa fa-eye-slash"
+										aria-hidden="true"></i></a>
+							</div>
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['CPassword'].hasError('required') && manageUser.controls['CPassword'].touched">
+								<small class="text-danger">Confirm Password is required</small>
+							</div>
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['CPassword'].hasError('confirmedValidator') && manageUser.controls['CPassword'].touched">
+								<small class="text-danger">Confirm Password Does not match.</small>
+							</div>
+						</div>
+						<div class="col-md-1">
+
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Department</label>
+							<select class="form-control" formControlName="Department">
+								<option selected="selected" value="0">-- Select Department --</option>
+								<option *ngFor="let items of DepartmentList" [value]="items.id">{{items.deptName}}
+								</option>
+
+							</select>
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['Department'].invalid && (manageUser.controls['Department'].dirty || manageUser.controls ['Department'].touched)">
+								<div *ngIf="manageUser.controls['Department'].hasError('required')">
+									<small class="text-danger">User id is required </small>
+								</div>
+								<div *ngIf="manageUser.controls['Department'].hasError('pattern')">
+									<small class="text-danger">User id is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1">
+
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Designation</label>
+							<input type="text" class="form-control" formControlName="Designation"
+								placeholder="Enter Designation">
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['Designation'].invalid && (manageUser.controls['Designation'].dirty || manageUser.controls ['Designation'].touched)">
+								<div *ngIf="manageUser.controls['Designation'].hasError('required')">
+									<small class="text-danger">Designation is required </small>
+								</div>
+								<div *ngIf="manageUser.controls['Designation'].hasError('pattern')">
+									<small class="text-danger">Designation is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1 mt-4-5">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="Designation must have contain capital & small Character"><i
+									class="fa fa-circle-info"></i></a>
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Role</label>
+							<select class="form-control" formControlName="Role">
+								<option selected="selected" [value]="0">-- Select Role --</option>
+								<option *ngFor="let items of roleList" [value]="items.id">{{items.roleName}}
+								</option>
+							</select>
+							<div class="custom-validate"
+								*ngIf="manageUser.controls['Role'].invalid && (manageUser.controls['Role'].dirty || manageUser.controls ['Role'].touched)">
+								<div *ngIf="manageUser.controls['Role'].hasError('required')">
+									<small class="text-danger">User id is required </small>
+								</div>
+								<div *ngIf="manageUser.controls['Role'].hasError('pattern')">
+									<small class="text-danger">User id is invalid.</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1">
+
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="btn btn-indigo" [disabled]="manageUser.invalid">Create</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Edit User -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="editUserForm"(ngSubmit)="UpdateUser()">
+					<div class="row">
+						<div class="col-md-5 form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" formControlName="ename" placeholder="Enter Name">
+						</div>
+						<div class="col-md-1 mt-4-5">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="Name contain Samll & capital Character"><i class="fa fa-circle-info"></i></a>
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Mobile No.</label>
+							<input type="number" class="form-control" formControlName="eMobile"
+								placeholder="Enter Mobile No.">
+						</div>
+						<div class="col-md-1">
+
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Email ID</label>
+							<input type="email" class="form-control" formControlName="email"
+								placeholder="Enter Email ID">
+						</div>
+						<div class="col-md-1">
+
+						</div>
+						<div class="col-md-5 form-group">
+							<label>User ID</label>
+							<input type="text" class="form-control" formControlName="eUid" placeholder="Enter User ID">
+						</div>
+						<div class="col-md-1 mt-4-5">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="User ID contain Alphanumeric Character"><i class="fa fa-circle-info"></i></a>
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Department</label>
+							<select class="form-control" formControlName="eDepartment">
+								<option selected="selected" [value]="0">-- Select Department --</option>
+								<option *ngFor="let items of DepartmentList" [value]="items.id">{{items.deptName}}
+								</option>
+
+							</select>
+						</div>
+						<div class="col-md-1">
+
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Designation</label>
+							<input type="text" class="form-control" formControlName="eDesignation"
+								placeholder="Enter Designation">
+						</div>
+						<div class="col-md-1 mt-4-5">
+							<a href="javascript:void(0)" class="text-muted" data-toggle-second="tooltip"
+								title="Designation must have contain capital & small Character"><i
+									class="fa fa-circle-info"></i></a>
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Role</label>
+							<select class="form-control" formControlName="eRole">
+								<option selected="selected"[value]="0">-- Select Role --</option>
+								<option *ngFor="let items of roleList" [value]="items.id">{{items.roleName}}</option>
+
+							</select>
+						</div>
+						<div class="col-md-1">
+
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="btn btn-green">Update</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

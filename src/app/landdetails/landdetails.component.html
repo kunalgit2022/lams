@@ -1,0 +1,271 @@
+<app-masterheader></app-masterheader>
+<div class="loaders-wrapper" *ngIf="loader">
+	<div class="loader">
+		<div class="loader-pulse"></div>
+	</div>
+</div>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">Land Information</h4>
+							<form [formGroup]="LandDetailsFrom">
+								<div class="row">
+									<div class="col-md-2">
+										<label>Select Phase</label>
+										<select class="form-control" name="phase" formControlName="phase"
+											(change)="getPhase($event)">
+											<option value="0">-- Select Phase --</option>
+											<option value="Phase 1">Phase - 1</option>
+											<option value="Phase 2">Phase - 2</option>
+										</select>
+										<!-- <select id="multiple-checkboxes" multiple="multiple">
+									        <option value="phase1">Phase 1</option>
+									        <option value="phase2">Phase 2</option>
+									    </select> -->
+									</div>
+									<div class="col-md-2">
+										<label>Village</label>
+										<select class="form-control" name="village1" formControlName="village"
+											(change)="selectVillage($event)">
+											<option value="0">-- Select Village --</option>
+											<option [value]="item.village" *ngFor="let item of Allvillage">
+												{{item.village}}</option>
+
+										</select>
+									</div>
+									<div class="col-md-2">
+										<label>Ownership</label>
+										<select class="form-control" name="ownership" formControlName="ownership"
+											(change)="selectOwnership($event)">
+											<option value="0">-- Select Ownership --</option>
+											<option value="Government">Government</option>
+											<option value="Forest">Forest</option>
+											<option value="Private">Private</option>
+
+										</select>
+									</div>
+									<div class="col-md-2">
+										<label>Land Class</label>
+										<select class="form-control" name="landclass" formControlName="landclass"
+											(change)="selectlandclass($event)">
+											<option value="0">-- Select Land Class --</option>
+											<option *ngFor="let item of Landclass" [value]="item.landClass">
+												{{item.landClass}}</option>
+
+										</select>
+									</div>
+									<div class="col-md-2">
+										<button type="button" class="btn btn-label btn-dark" id="advanceOption">Open
+											Additional Query</button>
+									</div>
+									<div class="col-md-2">
+										<button type="button" class="btn btn-label btn-green"
+											(click)="finddLandeatils()"><i
+												class="fa fa-search">&nbsp;</i>Search</button>
+									</div>
+								</div>
+								<div class="advancePanel border mt-2 p-2" style="display:none;">
+									<div class="row">
+										<div class="col-md-2">
+											<label>Khata No.</label>
+											<select class="form-control" name="khata" formControlName="khata">
+												<option value="0">-- Select Khata No. --</option>
+												<option *ngFor="let item of khataNos" [value]="item.khatano">
+													{{item.khatano}}</option>
+											</select>
+										</div>
+
+										<div class="col-md-2">
+											<label>Required Area</label>
+											<select class="form-control" name="Rarea" formControlName="operator">
+												<option value="0">-- Select --</option>
+												<option value="1">></option>
+												<option value="1"></option>
+												<option value="2">=</option>
+												<option value="2">>=</option>
+												<option value="2"></option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<input type="text" class="form-control btn-label" placeholder="Enter Value"
+												formControlName="Rarea">
+										</div>
+										<div class="col-md-2">
+											<label>Forest Type</label>
+											<select class="form-control" name="Forest" formControlName="Forest">
+												<option value="0">-- Select Forest Type --</option>
+												<option value="1">Revenue Forest</option>
+												<option value="2">DLC Forest</option>
+											</select>
+										</div>
+
+
+									</div>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="panel panel-info" id="tabs">
+
+								<div class="tabs-menu1 ">
+									<ul class="nav panel-tabs">
+										<li><a id="tab1Show" href="#tab1" class="active me-1" data-toggle="tab"
+												(click)="openLand()">Land
+												Details</a></li>
+										<li><a href="#tab2" data-toggle="tab" class="me-1" id="tab2Show"
+												(click)="openMap()">Map View</a>
+										</li>
+									</ul>
+									<div class="object-float">
+										<div class="input-group" *ngIf="showSearch===true">
+											<input class="form-control border-end-0" type="text" placeholder="Search"
+												[(ngModel)]="getSearchData" (keydown.enter)="executeFunction()">
+											<span class="input-group-append">
+												<button class="btn btn-green border-start-0 border ms-n3" type="button"
+													(click)="showSearchMap()">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+
+								<div class="panel-body tabs-menu-body">
+									<div class="tab-content">
+										<div class="tab-pane active" id="tab1">
+
+											<div class="table-responsive">
+												<table class="table table-sm table-bordered row-border mb-0" id="table1"
+													[dtTrigger]="dtTrigger" [dtOptions]="dtOptions" datatable>
+													<thead>
+														<tr>
+															<th width="7%">Sl. No.</th>
+															<th>Lease Case No.</th>
+															<th>Khata No.</th>
+															<th>Plot No.</th>
+															<th>Type of Rights</th>
+															<th>Kissam</th>
+															<th>Land Class</th>
+															<th>RoR Area (Acre)</th>
+															<th>Proposed Area (Acre)</th>
+															<th>Map View</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr *ngFor="let items of FinallandDetails;index as i ">
+															<td>{{i+1}}</td>
+															<td class="text-right">{{items.leaseCase}}</td>
+															<td class="text-right">{{items.khataNo}}</td>
+															<td class="text-right">{{items.plotNo}}</td>
+															<td>{{items.owner}}</td>
+															<td>{{items.kissam}}</td>
+															<td>{{items.landclass}}</td>
+															<td class="text-right">{{items.rorArea}}</td>
+															<td class="text-right">{{items.reqareaac}}</td>
+															<td>
+																<button type="submit"
+																	class="btn btn-sm btn-green btn-icon"
+																	data-toggle="tooltip" title="Map View"
+																	id="clicktab2"
+																	(click)="viewDataOnMap(items.projPhase,items.plotNo,items.village,items.khataNo,items)"><i
+																		class="fa fa-eye"></i></button>
+															</td>
+														</tr>
+													</tbody>
+													<tfoot>
+														<tr>
+															<td><strong>Total</strong></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td class="text-right"><strong>{{rorAreaSum.toFixed(2) +"
+																	"}}</strong>
+															</td>
+															<td class="text-right"><strong>{{requiredArea.toFixed(2) +"
+																	"}}</strong></td>
+															<td></td>
+														</tr>
+													</tfoot>
+												</table>
+											</div>
+
+											<hr>
+
+											<p class="mb-0">
+												Total no. of Khata Selected :
+												<strong>{{this.unick_khata_no}}</strong>,&nbsp;
+												Total no. of Plot Selected : <strong>{{this.noofplot}}</strong>
+											</p>
+
+										</div>
+										<div class="tab-pane" id="tab2">
+
+											<div class="row">
+												<div class="col-md-5" *ngIf="plotInfo!=null">
+													<h4 class="custom-title">Plot Information</h4>
+													<p class="mb-1 pb-1 border-bottom"><strong>Lease Case. :
+														</strong>{{plotInfo.leaseCase}}</p>
+													<p class="mb-1 pb-1 border-bottom"><strong>Type of Rights :
+														</strong>{{plotInfo.owner}}</p>
+													<p class="mb-1 pb-1 border-bottom"><strong>Khata No. :
+														</strong>{{plotInfo.khataNo}}</p>
+													<p class="mb-1 pb-1 border-bottom"><strong>Plot No. :
+														</strong>{{plotInfo.plotNo}}</p>
+													<p class="mb-1 pb-1 border-bottom"><strong>Land Class :
+														</strong>{{plotInfo.landclass}}</p>
+													<p class="mb-1 pb-1 border-bottom"><strong>Kissam :
+														</strong>{{plotInfo.kissam}}</p>
+													<p class="mb-1 pb-1 border-bottom"><strong>RoR Area (Acre) :
+														</strong>{{plotInfo.rorArea}}</p>
+													<p class="mb-1 pb-1 border-bottom"><strong>Proposed Area (Acre) :
+														</strong>{{plotInfo.reqareaac}}</p>
+												</div>
+												<div class="col-md-7">
+													<div class="map-catalogue" id="map">
+														<!-- <iframe
+															src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56979.84629260988!2d86.65822396693711!3d20.321172347341506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1bc54e52b89a33%3A0x597abb0008ff5db7!2sKendrapara%2C%20Odisha!5e1!3m2!1sen!2sin!4v1669284532082!5m2!1sen!2sin"
+															width="100%" height="100%" style="border:0;"
+															allowfullscreen="" loading="lazy"
+															referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>

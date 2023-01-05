@@ -1,0 +1,226 @@
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    /*background: url('../../assets/images/Ims.jpg') top center;
+    background-size: cover;*/
+    background-color: #db291d;
+    color: #fff;
+    /*transition: all 0.3s;*/
+    margin-top: 55px;
+    height: calc(100vh - 55px);
+    position: fixed;
+    overflow: auto;
+    /*padding-top: 10px;*/
+    padding-bottom: 5px;
+    z-index: 99;
+    transition: 0.25s all ease-in-out;
+    -webkit-transition: 0.25s all ease-in-out;
+    -moz-transition: 0.25s all ease-in-out;
+    -o-transition: 0.25s all ease-in-out;
+}
+
+#sidebar.active {
+    /*margin-left: -250px;*/
+    margin-left: -200px;
+}
+
+.overlay-sidebar{
+    background-color: rgba(104, 23, 23, 0.725);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/*-------- start toggle menu --------*/
+#sidebar.active ul li i{
+    float: right;
+    /*margin-right: 7px;*/
+}
+#sidebar.active .dropdown-toggle::after{
+    display: none;
+}
+#sidebar.active:hover{
+    margin-left: 0px;
+}
+#sidebar.active:hover ul li i{
+    float: none;
+    margin-right: auto;
+}
+#sidebar.active:hover .dropdown-toggle::after{
+    display: block;
+}
+@media(max-width: 768px){
+    #sidebar.active ul li i{
+        float: none;
+        margin-right: auto !important;
+    }
+}
+/*-------- end toggle menu --------*/
+
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#sidebar ul.components {
+    margin-bottom: 0px;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar.active ul li a {
+    padding: 10px 17px;
+}
+
+#sidebar ul li a {
+    padding: 10px 12px;
+    font-size: 14px;
+    display: block;
+    /*color: #fff;*/
+    color: rgba(255, 255, 255, 0.725);
+    /*margin: 0 7px;*/
+    margin: 0;
+    /*padding-right: 18px;*/
+}
+
+#sidebar ul li a i{
+	font-size: 16px;
+	line-height: 18px;
+}
+
+#sidebar ul li a i.fa-circle{
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+#sidebar ul li{
+    border-bottom: 1px solid rgba(0,0,0,0.125);
+}
+
+#sidebar ul li ul{
+    background-color: rgba(0, 0, 0, 0.245);
+}
+
+#sidebar ul li ul li{
+    border-bottom: transparent;
+}
+
+#sidebar ul li a:hover {
+    color: rgba(255, 255, 255, 0.835);
+    background: rgba(0, 0, 0, 0.375);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#sidebar ul li a i{
+  /*margin-right: 5px;*/
+  /*font-size: 13px;
+  position: relative;
+  left: -5px;*/
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: rgba(255, 255, 255, 0.835);
+    background: rgba(0, 0, 0, 0.375);
+}
+
+#sidebar ul li.active ul{
+    margin: 7px 0;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 45%;
+    right: 10px;
+    transform: translateY(50%);
+    font-size: 16px;
+}
+.dropdown-toggle.collapsed::after{
+    transform: rotate(-90deg);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+}
+
+#sidebar ul li ul li.active>a {
+    /*color: #ffe244;
+    background: #3d8e0d;*/
+    color: rgba(255, 255, 255, 0.935);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+ul.show li a{
+    padding-left: 30px !important;
+    border-bottom: 1px solid rgba(0,0,0,0.215);
+}
+
+ul.show li li a{
+    padding-left: 50px !important;
+    border-bottom: 1px solid rgba(0,0,0,0.215);
+}
+
+ul li a i{
+    position: relative;
+    top: 1px;
+    margin-right: 3px;
+}
+
+ul li li a.dropdown-toggle i{
+    margin-right: 2px;
+    position: relative;
+    top: 1px;
+    margin-right: 3px;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: #fff;
+    color: #7386D5;
+}
+
+a.article,
+a.article:hover {
+    background: #300606 !important;
+    color: #fff !important;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #sidebar {
+        /*margin-left: 0px;*/
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        /*margin-left: -250px;*/
+        margin-left: 0px;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}

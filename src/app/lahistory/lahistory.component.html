@@ -1,0 +1,124 @@
+
+<app-masterheader></app-masterheader>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">LA History</h4>
+							<form>
+								<div class="row">
+									<div class="col-md-2">
+										<label>Phase</label>
+										<select class="form-control">
+											<option value="0">-- Select Phase --</option>
+											<option>11</option>
+											<option>22</option>
+										</select>
+									</div>
+									<div class="col-md-2">
+										<label>Village</label>
+										<select class="form-control">
+											<option value="0">-- Select Village --</option>
+											<option>11</option>
+											<option>22</option>
+										</select>
+									</div>
+									<div class="col-md-2">
+										<label>Lease Case</label>
+										<select class="form-control">
+											<option value="0">-- Select Lease Case --</option>
+											<option>11</option>
+											<option>22</option>
+										</select>
+									</div>
+									<div class="col-md-2">
+										<label>Date From</label>
+										<div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
+										    <input class="form-control" type="text" />
+										    <span class="input-group-addon"><i class="fa fa-calendar-days"></i></span>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<label>Date To</label>
+										<div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
+										    <input class="form-control" type="text" />
+										    <span class="input-group-addon"><i class="fa fa-calendar-days"></i></span>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<button type="button" class="btn btn-label btn-green"><i class="fa fa-search">&nbsp;</i>Search</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="table-responsive">
+								<table class="table table-sm table-bordered row-border mb-0" id="laHistoryDatatable">
+									<thead>
+										<tr>
+											<th width="6%">Sl. No.</th>
+											<th>Lease Case</th>
+											<th>Land Class</th>
+											<th>Acquisition Stage</th>
+											<th>Acquisition Description</th>
+											<th>Acquisition Phase</th>
+											<th>Updated on</th>
+											<th>Remarks</th>
+											<th>Document</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>45</td>
+											<td>Leasable</td>
+											<td>L1</td>
+											<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</td>
+											<td>Initial</td>
+											<td>12.12.2022</td>
+											<td>Ongoing</td>
+											<td><button type="button" class="btn btn-sm btn-orange btn-icon"><i class="fa fa-file-pdf"></i></button></td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>78</td>
+											<td>Leasable</td>
+											<td>L2</td>
+											<td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</td>
+											<td>Initial</td>
+											<td>09.12.2022</td>
+											<td>Ongoing</td>
+											<td><button type="button" class="btn btn-sm btn-orange btn-icon"><i class="fa fa-file-pdf"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>

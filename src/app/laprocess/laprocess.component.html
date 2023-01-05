@@ -1,0 +1,92 @@
+<app-masterheader></app-masterheader>
+
+<div class="wrapper">
+    <div class="loaders-wrapper" *ngIf="loader">
+        <div class="loader">
+            <div class="loader-pulse"></div>
+        </div>
+    </div>
+    
+    <app-sidebar></app-sidebar>
+
+    <div id="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="custom-title">LA Process</h4>
+                            <form [formGroup]="laForm">
+                                <div class="row">
+                                    <div class="col-md-1 mt-2">
+                                        <label>Land Class</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" formControlName="landClassBind">
+                                            <option value="0">-- Select Land Class --</option>
+                                            <option *ngFor="let item of landclass">{{item.landClass}}</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-green" (click)="findLaData()"><i
+                                                class="fa fa-search">&nbsp;</i>Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered row-border mb-0" id="laProcessDatatable"
+                                [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" datatable data-paging='false'>
+                                    <thead>
+                                        <tr>
+                                            <th width="6%">Sl. No.</th>
+                                            <th width="12%">Stage Code</th>
+                                            <th>Stage Description</th>
+                                            <th width="15%">Phase Status</th>
+                                            <th width="12%">Duration (days)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of laTableData; index as i">
+                                            <td>{{i+1}}</td>
+                                            <td>{{item.stageCode}}</td>
+                                            <td>{{item.stageDesc}}</td>
+                                            <td>{{item.phase}}</td>
+                                            <td class="text-right">{{item.duration}}</td>
+
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4"><strong>Total</strong></td>
+                                            <td class="text-right"><strong>{{this.durationDays}}</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="footer">
+        <app-masterfooter></app-masterfooter>
+    </div>
+
+</div>

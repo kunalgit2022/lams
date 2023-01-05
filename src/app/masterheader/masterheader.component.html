@@ -1,0 +1,137 @@
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a id="sidebarCollapse" class="header-clk header-expand">
+            <span><i class="mdi mdi-chevron-triple-left"></i></span>
+        </a>
+        <a href="/" class="header-logo">
+            <img src="assets/images/logo.png" alt="logo" class="logo">
+            <h1 class="title-md">Land Acquisition / Alienation Monitoring System</h1>
+            <h1 class="title-sm">LAMS</h1>
+        </a>
+        <a class="header-clk d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="mdi mdi-dots-vertical"></i>
+        </a>
+        <div class="collapse navbar-collapse top-dropdown" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item dropdown">
+                    <a class="nav-link profile dropdown-toggle" id="navbarDropdownMenuLink-22" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/images/user-default.jpg" class="profile">
+                        <span class="profile-title">Tarini Prasad Das</span>,
+                        <small class="profile-title-sm text-muted">Officer</small>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                        aria-labelledby="navbarDropdownMenuLink-22">
+                        <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#modalChangePassword"><i class="fa fa-key"></i>Change Password</a>
+                        <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#modalProfileSettings"><i class="fa fa-user-check"></i>Profile Settings</a>
+                        <div class="dropdown-divider m-0"></div>
+                        <button class="dropdown-item" ><i class="fa fa-power-off"></i>Logout</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal Change Password -->
+<div class="modal fade" id="modalChangePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Change Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="mt-2">Old Password :</label>
+                </div>
+                <div class="col-md-8" id="show_hide_password">
+                    <input type="password" class="form-control" placeholder="Old Password" id="password">
+                    <div class="input-group-addon">
+                        <a href="javascript:void(0)" class="text-muted"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="mt-2">New Password :</label>
+                </div>
+                <div class="col-md-8" id="show_hide_password_2">
+                    <input type="password" class="form-control" placeholder="New Password" id="password2">
+                    <div class="input-group-addon">
+                        <a href="javascript:void(0)" class="text-muted"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="mt-2">Confirm Password :</label>
+                </div>
+                <div class="col-md-8" id="show_hide_password_3">
+                    <input type="password" class="form-control" placeholder="Confirm Password" id="password3">
+                    <div class="input-group-addon">
+                        <a href="javascript:void(0)" class="text-muted"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <button class="btn btn-green">Submit</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Profile Settings -->
+<div class="modal fade" id="modalProfileSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Profile Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="mt-2">Name :</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="Name">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="mt-2">Email ID :</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="email" class="form-control" placeholder="Email ID">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="mt-2">Mobile No. :</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" placeholder="Mobile No.">
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <button class="btn btn-green">Update</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

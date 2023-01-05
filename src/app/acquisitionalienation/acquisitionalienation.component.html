@@ -1,0 +1,195 @@
+<app-masterheader></app-masterheader>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">
+								Land Status Update
+							</h4>
+							<form>
+								<div class="row">
+									<div class="col-md-10">
+										<div class="row">
+											<div class="col-md-3">
+												<label>Select Phase :</label>
+												<select class="form-control" (change)="onPhaseSelectAll($event)">
+													<option value="0">-- Select Phase --</option>
+													<option value="Phase 1">Phase 1</option>
+													<option value="Phase 2">Phase 2</option>
+												</select>
+											</div>
+											<div class="col-md-3">
+												<label>Village :</label>
+												<select class="form-control" #onVillSelect
+													(change)="onVillageSelect(onVillSelect.value)">
+													<option selected="selected" value="0">-- Select Village --</option>
+													<option *ngFor="let item of getVillageData"
+														value="{{stringify(item)}}">{{item.village}}
+													</option>
+												</select>
+											</div>
+											<div class="col-md-3">
+												<label>Land Class :</label>
+												<select class="form-control"
+													(change)="getLandClassWiseLeaseCaseNoData($event)">
+													<option selected="selected" value="0">-- Select Land Class --
+													</option>
+													<option *ngFor="let item of getLandClassData"
+														[value]="item.landClass">{{item.landClass}}
+													</option>
+												</select>
+											</div>
+											<div class="col-md-3">
+												<label>Lease Case No. :</label>
+												<select class="form-control" name="leaseCase" [(ngModel)]="leasecaseNo">
+													<option selected="selected" value="0">-- Select Lease Case No. --
+													</option>
+													<option *ngFor="let item of leaseCaseNoData">{{item.leaseCaseno}}
+													</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<button class="btn btn-green btn-label" (click)="searchData()"><i
+												class="fa fa-search">&nbsp;</i>Search</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="table-responsive">
+								<table class="table table-sm table-bordered row-border mb-0" id="acquisitionDatatable"
+									[dtTrigger]="dtTrigger" [dtOptions]="dtOptions" datatable>
+									<thead>
+										<tr>
+											<th width="5%"><input type="checkbox" id="check_all" /></th>
+											<th>Plot No.</th>
+											<th>Khata No.</th>
+											<th>Kissam</th>
+											<th>RoR Area (Acre)</th>
+											<th>Required Area (Acre)</th>
+											<th>Lease Case No.</th>
+											<th>Stage</th>
+											<th>Phase</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let item of fetchPlotDetails">
+											<td><input type="checkbox" name="row-check" [value]="item.gid"
+													(click)="primaryCheck($event)"></td>
+											<td class="text-right">{{item.plotNo}}</td>
+											<td class="text-right">{{item.khataNo}}</td>
+											<td>{{item.kissam}}</td>
+											<td class="text-right">{{item.rorArea}}</td>
+											<td class="text-right">{{item.reqareaac}}</td>
+											<td class="text-right">{{item.leaseCase}}</td>
+											<td>{{item.acqStage}}</td>
+											<td>{{item.acqPhase}}</td>
+										</tr>
+										<!-- <tr>
+											<td><input type="checkbox" name="row-check" value="2"></td>
+											<td class="text-right">33</td>
+											<td class="text-right">54</td>
+											<td>Gharabari</td>
+											<td class="text-right">0.75</td>
+											<td class="text-right">0.54</td>
+											<td class="text-right">02/22</td>
+											<td>L4</td>
+											<td>Processing</td>
+										</tr>
+										<tr> -->
+										<!-- <td><input type="checkbox" name="row-check" value="3"></td>
+											<td class="text-right">39</td>
+											<td class="text-right">67</td>
+											<td>Gharabari</td>
+											<td class="text-right">1.21</td>
+											<td class="text-right">2.42</td>
+											<td class="text-right">02/22</td>
+											<td>L4</td>
+											<td>Processing</td>
+										</tr> -->
+									</tbody>
+								</table>
+							</div>
+							<hr>
+							<div class="text-center">
+								<button class="btn btn-indigo" data-toggle="modal" data-target="#modalUpdateStage"
+									[disabled]="checkBoxChecked" (click)="updateStage()">Update Stage</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>
+
+<!-- Modal Upadate Stage -->
+<div class="modal fade" id="modalUpdateStage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Update Stage</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="stageUpdate" (ngSubmit)="submitUpdateStage()">
+					<div class=" row">
+						<div class="col-md-12 form-group">
+							<label>Stage :</label>
+							<select class="form-control" #selectStage (change)="onStageselect(selectStage.value)">
+								<option selected="selected" value="0">-- Select Stage --</option>
+								<option *ngFor="let item of stageData" value="{{stringify(item)}}">{{item.stageCode}}
+								</option>
+							</select>
+							<!-- <span style="color: red"
+								*ngIf="stageUpdate.controls['stage'].touched && stageUpdate.controls['stage'].invalid ">Please
+								Select The Stage</span> -->
+						</div>
+						<div class="col-md-12 form-group">
+							<label>Remarks :</label>
+							<textarea class="form-control" placeholder="Remarks" formControlName="remark"></textarea>
+						</div>
+						<!-- <span style="color: red"
+							*ngIf="stageUpdate.controls['remark'].touched && stageUpdate.controls['remark'].invalid ">Please
+							Write The Remark</span> -->
+						<div class="col-md-12">
+							<label>Upload Documents :</label>
+							<input type="file" class="form-control" name="file" id="file" placeholder="Upload Documents"
+								(change)="onFileSelect($event)" />
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="btn btn-green" [disabled]="stageUpdate.invalid">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

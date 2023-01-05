@@ -1,0 +1,628 @@
+<app-masterheader></app-masterheader>
+
+<!-- <div class="loaders-wrapper" *ngIf="loader">
+	<div class="loader">
+		<div class="loader-clock"></div>
+	</div>
+</div> -->
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body card-body-map">
+
+							<div class="map-viewer-floater">
+								<ul>
+									<li>
+										<a href="javascript:void(0)" data-toggle="tooltip" title="Filter"
+											class="mapFilter"><img src="assets/images/icons/filter.png"></a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-toggle="tooltip" title="Zoom to Extend" (click)="reCenterzoom()"><img src="assets/images/icons/zoom-extend.png"></a>
+									</li>
+								</ul>
+								<!-- Filter Toggle -->
+								<div id="mapFilterContent" style="display:none">
+									<div class="layer-header">
+										<h5>Filter</h5>
+										<a href="javascript:void(0)" class="mapFilter ms-auto"><i
+												class="fa fa-circle-xmark"></i></a>
+									</div>
+									<div class="card">
+										<div class="card-body small">
+											<div class="row form-group">
+												<div class="col-md-4 text-left">
+													<label class="mb-0 mt-1">Phase : </label>
+												</div>
+												<div class="col-md-8">
+													<select class="form-control form-control-sm"
+														(change)="showPhase($event)">
+														<option value="0">-- Select Phase --</option>
+														<option value="Phase 1">Phase - 1</option>
+														<option value="Phase 2">Phase - 2</option>
+													</select>
+												</div>
+											</div>
+											<div class="row form-group"
+												*ngIf="showLandClassification==='Phase 1'||showLandClassification==='Phase 2'">
+												<div class="col-md-12 text-left">
+													<label class="mb-0">Land Classification : </label>
+												</div>
+												<div class="col-md-6">
+													<div class="form-check text-left ml-2">
+														<input class="form-check-input" type="radio"
+															name="flexRadioDefault" id="flexRadioDefault1" value="None"
+															(change)="getLandClassification($event)" checked>
+														<label class="form-check-label" for="flexRadioDefault1">
+															None
+														</label>
+													</div>
+													<div class="form-check text-left ml-2">
+														<input class="form-check-input" type="radio"
+															name="flexRadioDefault" id="flexRadioDefault2"
+															value="Ownership" (change)="getLandClassification($event)">
+														<label class="form-check-label" for="flexRadioDefault2">
+															Ownership
+														</label>
+													</div>
+													<div class="form-check text-left ml-2">
+														<input class="form-check-input" type="radio"
+															name="flexRadioDefault" id="flexRadioDefault3"
+															value="Land Class" (change)="getLandClassification($event)">
+														<label class="form-check-label" for="flexRadioDefault3">
+															Land Class
+														</label>
+													</div>
+													<div class="form-check text-left ml-2">
+														<input class="form-check-input" type="radio"
+															name="flexRadioDefault" id="flexRadioDefault4"
+															value="Land Progress"
+															(change)="getLandClassification($event)">
+														<label class="form-check-label" for="flexRadioDefault4">
+															Land Progress
+														</label>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="text-left" *ngFor="let item of queryData">
+														<img src="{{'assets/images/legend/'+item.img}}" alt="image"
+															class="img-combined"><span>{{item.type}}</span>
+													</div>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-4 text-left">
+													<label class="mb-0">DLC Forest : </label>
+												</div>
+												<div class="col-md-8">
+													<div class="form-check text-left">
+														<input class="form-check-input" type="checkbox"
+															id="inlineCheckbox1" value="DLC_FOREST"
+															(change)="showDLCForest($event)">
+														<label class="form-check-label" for="inlineCheckbox1">DLC
+															Forest</label>
+														<span class="img-combined legend-color-code"
+															style="background-color: rgba(20, 87, 16,0.88);"></span>
+													</div>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-12 text-left">
+													<h5 class="custom-title">Administrative Filter</h5>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-4 text-left">
+													<label class="mb-0 mt-1">Village : </label>
+												</div>
+												<div class="col-md-8">
+													<select class="form-control form-control-sm"
+														(change)="showVillage($event)">
+														<option value="0">-- Select Village --</option>
+														<option [value]="item.village"
+															*ngFor="let item of phaseWiseVillage">{{item.village}}
+														</option>
+													</select>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-4 text-left">
+													<label class="mb-0 mt-1">Khata No. : </label>
+												</div>
+												<div class="col-md-8">
+													<select class="form-control form-control-sm" (change)="showKhata($event)">
+														<option value="0">-- Select Khata No. --</option>
+														<option [value]="item.khatano" *ngFor="let item of villageWiseKhataData">{{item.khatano}}</option>
+													</select>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col-md-4 text-left">
+													<label class="mb-0">Plot No. : </label>
+												</div>
+												<div class="col-md-8 input-group">
+													<input type="text" class="form-control form-control-sm" placeholder="Enter Plot No." name="" [(ngModel)]="getPlotValue">
+													<div class="input-group-append">
+    													<button type="button" class="btn btn-sm btn-green" (click)="showPlot()"><i class="fa fa-search"></i></button>
+  													</div>
+												</div>
+											</div>											
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="map-icon-floater">
+								<ul>
+									<li>
+										<a href="javascript:void(0)" data-toggle="tooltip" title="Layers"
+											class="mapLayers"><img src="assets/images/icons/layers.png"></a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-toggle="tooltip" title="Basemap"
+											class="mapBase"><img src="assets/images/icons/basemap.png"></a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-toggle="tooltip" title="Legend"
+											class="mapLegend"><img src="assets/images/icons/legend.png"></a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-toggle="tooltip" title="Measurement"
+											class="mapMeasurement"><img src="assets/images/icons/measurement.png"></a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-toggle="tooltip" title="Extend Map"
+											onclick="toggleFullScreen(document.body)"><img
+												src="assets/images/icons/extend.png"></a>
+									</li>
+								</ul>
+							</div>
+
+							<!-- Layer Toggle -->
+							<div id="mapLayersContent" style="display:none">
+								<div class="layer-header">
+									<h5>
+										<!-- Layers -->
+									</h5>
+									<a href="javascript:void(0)" class="mapLayers ms-auto"><i
+											class="fa fa-circle-xmark"></i></a>
+								</div>
+								<div class="card">
+									<div class="card-body">
+
+										<div class="tree_main small mb-2">
+											<ul id="{{'bs_main_'+gitem.gid}}" class="main_ul"
+												*ngFor="let gitem of allLayerList">
+												<li id="{{'G_'+gitem.gid}}">
+													<span class="plus" id="{{'lamsOpen'+gitem.gid}}">&nbsp;</span>
+													<i class="fa fa-folder text-warning"></i>
+													<input type="checkbox" id="{{'e_bs_'+gitem.gid}}" value=""
+														[indeterminate]="gitem.activeStatus===true"
+														(change)="getGlobalLayer($event,gitem.pLayer)" />
+													<label for="{{'e_bs_'+gitem.gid}}">{{gitem.gName}}</label>
+													<ul id="{{'ef_l_'+gitem.gid}}" style="display: none"
+														class="inner_ul">
+														<li id="{{'io_'+pitem.pid}}" *ngFor="let pitem of gitem.pLayer">
+															<input type="checkbox" id="{{'e_io_'+pitem.pid}}"
+																[checked]="pitem.activeStatus===true"
+																[value]="pitem.url"
+																(change)="getPrimaryLayer($event,pitem)" />
+															<label for="{{'e_io_'+pitem.pid}}">{{pitem.pName}}</label>
+															<!-- <img src="assets/images/icons/icon-legend.png" alt="image" class="img-combined">  background-color:#c6cb37-->
+															<span class="img-combined legend-color-code"
+																[style]="pitem.stroke"></span>
+															<span class="dropdown dropdown-fixed">
+																<a class="dropdown-toggle" type="button" id="menu1"
+																	data-toggle="dropdown"><i
+																		class="fa fa-ellipsis"></i></a>
+																<ul class="dropdown-menu" role="menu"
+																	aria-labelledby="menu1">
+																	<li role="presentation"><a role="menuitem"
+																			tabindex="-1" href="javascript:void(0)"
+																			class="mapSlider">Transparency</a></li>
+																	<li role="presentation"><a role="menuitem"
+																			tabindex="-1" href="javascript:void(0)">Set
+																			as Active Layer</a></li>
+																</ul>
+															</span>
+														</li>
+														<!-- <li id="io_2">
+															<input type="checkbox" id="e_io_2" />
+															<label for="e_io_2">Village Boundary</label>
+														</li>
+														<li id="io_3">
+															<input type="checkbox" id="e_io_3" />
+															<label for="e_io_3">Plot Boundary</label>
+														</li> -->
+													</ul>
+												</li>
+												<!-- <li id="es_2">
+													<span class="plus" id="lamsOpen2">&nbsp;</span>
+													<i class="fa fa-folder text-warning"></i>
+													<input type="checkbox" id="e_bs_2" />
+													<label for="e_bs_2">Reference Layers</label>
+													<ul id="ef_l_2" style="display: none" class="inner_ul">
+														<li id="io_11">
+															<input type="checkbox" id="e_io_11" />
+															<label for="e_io_11">Road Network</label>
+															<ul id="ef_l_3" class="">
+																<li id="io_31">
+																	<input type="checkbox" id="e_io_31" />
+																	<label for="e_io_31">NH</label>
+																</li>
+																<li id="io_32">
+																	<input type="checkbox" id="e_io_32" />
+																	<label for="e_io_32">SH</label>
+																</li>
+																<li id="io_33">
+																	<input type="checkbox" id="e_io_33" />
+																	<label for="e_io_33">MDR</label>
+																</li>
+																<li id="io_34">
+																	<input type="checkbox" id="e_io_34" />
+																	<label for="e_io_34">ODR</label>
+																</li>
+																<li id="io_35">
+																	<input type="checkbox" id="e_io_35" />
+																	<label for="e_io_35">RD</label>
+																</li>
+															</ul>
+														</li>
+														<li id="io_12">
+															<input type="checkbox" id="e_io_12" />
+															<label for="e_io_12">Eco Sensitive Zone</label>
+															<ul id="ef_l_4" class="inner_ul">
+																<li id="io_41">
+																	<input type="checkbox" id="e_io_41" />
+																	<label for="e_io_41">Bhitarkanika Santuary Boundary
+																		2020</label>
+																</li>
+																<li id="io_42">
+																	<input type="checkbox" id="e_io_42" />
+																	<label for="e_io_42">Gahirmatha Santuary
+																		Boundary</label>
+																</li>
+																<li id="io_43">
+																	<input type="checkbox" id="e_io_43" />
+																	<label for="e_io_43">BKGM Combined ESZ Old</label>
+																</li>
+																<li id="io_44">
+																	<input type="checkbox" id="e_io_44" />
+																	<label for="e_io_44">BKGM Combined ESZ 2021
+																		Draft</label>
+																</li>
+																<li id="io_45">
+																	<input type="checkbox" id="e_io_45" />
+																	<label for="e_io_45">BKGM Combined ESZ S.C.
+																		2022</label>
+																</li>
+															</ul>
+														</li>
+														<li id="io_13">
+															<input type="checkbox" id="e_io_13" />
+															<label for="e_io_13">Water Bodies</label>
+															<ul id="ef_l_5" class="inner_ul">
+																<li id="io_51">
+																	<input type="checkbox" id="e_io_51" />
+																	<label for="e_io_51">River</label>
+																</li>
+																<li id="io_52">
+																	<input type="checkbox" id="e_io_52" />
+																	<label for="e_io_52">Drainage</label>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li> -->
+												<!-- <li id="es_7">
+													<span class="plus" id="lamsOpen2">&nbsp;</span>
+													<i class="fa fa-folder text-warning"></i>
+													<input type="checkbox" id="e_bs_7" />
+													<label for="e_bs_7">Reference Layers</label>
+													<ul id="ef_l_7" style="display: none" class="inner_ul">
+														<li id="io_111">
+															<input type="checkbox" id="e_io_111" />
+															<label for="e_io_111">Road Network</label>
+															<ul id="ef_l_13" class="">
+																<li id="io_131">
+																	<input type="checkbox" id="e_io_131" />
+																	<label for="e_io_131">NH</label>
+																</li>
+																<li id="io_132">
+																	<input type="checkbox" id="e_io_132" />
+																	<label for="e_io_132">SH</label>
+																</li>
+																<li id="io_133">
+																	<input type="checkbox" id="e_io_133" />
+																	<label for="e_io_133">MDR</label>
+																</li>
+																<li id="io_134">
+																	<input type="checkbox" id="e_io_134" />
+																	<label for="e_io_134">ODR</label>
+																</li>
+																<li id="io_135">
+																	<input type="checkbox" id="e_io_135" />
+																	<label for="e_io_135">RD</label>
+																</li>
+															</ul>
+														</li>
+														<li id="io_112">
+															<input type="checkbox" id="e_io_112" />
+															<label for="e_io_112">Eco Sensitive Zone</label>
+															<ul id="ef_l_14" class="inner_ul">
+																<li id="io_141">
+																	<input type="checkbox" id="e_io_141" />
+																	<label for="e_io_141">Bhitarkanika Santuary Boundary
+																		2020</label>
+																</li>
+																<li id="io_142">
+																	<input type="checkbox" id="e_io_142" />
+																	<label for="e_io_142">Gahirmatha Santuary
+																		Boundary</label>
+																</li>
+																<li id="io_143">
+																	<input type="checkbox" id="e_io_143" />
+																	<label for="e_io_143">BKGM Combined ESZ Old</label>
+																</li>
+																<li id="io_144">
+																	<input type="checkbox" id="e_io_144" />
+																	<label for="e_io_144">BKGM Combined ESZ 2021
+																		Draft</label>
+																</li>
+																<li id="io_145">
+																	<input type="checkbox" id="e_io_145" />
+																	<label for="e_io_145">BKGM Combined ESZ S.C.
+																		2022</label>
+																</li>
+															</ul>
+														</li>
+														<li id="io_113">
+															<input type="checkbox" id="e_io_113" />
+															<label for="e_io_113">Water Bodies</label>
+															<ul id="ef_l_15" class="inner_ul">
+																<li id="io_151">
+																	<input type="checkbox" id="e_io_151" />
+																	<label for="e_io_151">River</label>
+																</li>
+																<li id="io_152">
+																	<input type="checkbox" id="e_io_152" />
+																	<label for="e_io_152">Drainage</label>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li> -->
+											</ul>
+										</div>
+
+										<div class="row form-group">
+											<div class="col-md-12 text-left">
+												<h5 class="custom-title mb-1">Import Polygon</h5>
+											</div>
+										</div>
+										<div class="row form-group">
+											<div class="col-md-4 text-left">
+												<label class="mb-0 mt-1">Import KML : </label>
+											</div>
+											<div class="col-md-8">
+												<input type="file" class="form-control form-control-sm" placeholder="Import KML" name="KMLfile" accept=".kml" (change)="getKMLFile($event)" #myInput>
+											</div>
+										</div>
+										<hr>
+										<div class="row form-group">
+											<div class="col-md-12 text-center">
+												<button type="button" class="btn btn-sm btn-green" (click)="addKMLFile()">Show on Map</button>
+												<button type="button" class="btn btn-sm btn-red" (click)="removeKMLFile()">Remove KML</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<!-- Slider Toggle -->
+							<div id="mapSliderContent" style="display:none">
+								<div class="layer-header">
+									<h5>Transparency</h5>
+									<a href="javascript:void(0)" class="mapSlider ms-auto"><i
+											class="fa fa-circle-xmark"></i></a>
+								</div>
+								<div class="card">
+									<div class="card-body">
+
+										<input id="basic" type="text" data-slider-min="0" data-slider-max="100"
+											data-slider-step="5" data-slider-value="15" />
+
+									</div>
+								</div>
+							</div>
+
+							<!-- Basemap Toggle -->
+							<div id="mapBaseContent" style="display:none">
+								<div class="layer-header">
+									<h5>Basemap</h5>
+									<a href="javascript:void(0)" class="mapBase ms-auto"><i
+											class="fa fa-circle-xmark"></i></a>
+								</div>
+								<div class="card">
+									<div class="card-body">
+										<!-- <h6 class="custom-title">Basemap</h6> -->
+										<div class="row">
+											<div class="col-md-4 mb-1">
+												<a href="javascript:void(0);"><img
+														class="img-fluid img-thumbnail img-base"
+														src="assets/images/mapview/streets.jpg"
+														(click)="changeBaseMap('osm')">
+													<div alt="image" class="text-center" title="OpenStreet Map">Open
+														Street Map</div>
+												</a>
+											</div>
+											<div class="col-md-4 mb-1">
+												<a href="javascript:void(0);"><img
+														class="img-fluid img-thumbnail img-base"
+														src="assets/images/mapview/google_street.png"
+														(click)="changeBaseMap('road')">
+													<div alt="image" class="text-center" title="Road">Google Street
+													</div>
+												</a>
+											</div>
+											<div class="col-md-4 mb-1">
+												<a href="javascript:void(0);"><img
+														class="img-fluid img-thumbnail img-base"
+														src="assets/images/mapview/bingmap.png"
+														(click)="changeBaseMap('bingmaps')">
+													<div alt="image" class="text-center" title="Bingmaps">Bing Maps
+													</div>
+												</a>
+											</div>
+											<div class="col-md-4 mb-1">
+												<a href="javascript:void(0);"><img
+														class="img-fluid img-thumbnail img-base"
+														src="assets/images/mapview/satelite.png"
+														(click)="changeBaseMap('satellite')">
+													<div alt="image" class="text-center" title="Satellite">Satellite
+													</div>
+												</a>
+											</div>
+											<div class="col-md-4 mb-1">
+												<a href="javascript:void(0);"><img
+														class="img-fluid img-thumbnail img-base"
+														src="assets/images/mapview/hybrid.png"
+														(click)="changeBaseMap('googlehybrid')">
+													<div alt="image" class="text-center" title="Hybrid">Hybrid</div>
+												</a>
+											</div>
+											<div class="col-md-4 mb-1">
+												<a href="javascript:void(0);"><img
+														class="img-fluid img-thumbnail img-base"
+														src="assets/images/mapview/terrain.png"
+														(click)="changeBaseMap('terrain')">
+													<div alt="image" class="text-center" title="Terrain">Terrain</div>
+												</a>
+											</div>
+											<div class="col-md-4 mb-1">
+												<a href="javascript:void(0);"><img
+														class="img-fluid img-thumbnail img-base"
+														src="assets/images/mapview/cartography.png"
+														(click)="changeBaseMap('cartography')">
+													<div alt="image" class="text-center" title="Cartography">Cartography
+													</div>
+												</a>
+											</div>
+											<div class="col-md-4 mb-1">
+												<a href="javascript:void(0);"><img
+														class="img-fluid img-thumbnail img-base"
+														src="assets/images/mapview/nomap.jpg"
+														(click)="changeBaseMap('noMap')">
+													<div alt="image" class="text-center" title="Cartography">No Map
+													</div>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Legend Toggle -->
+							<div id="mapLegendContent" style="display:none">
+								<div class="layer-header">
+									<h5>Legend</h5>
+									<a href="javascript:void(0)" class="mapLegend ms-auto"><i
+											class="fa fa-circle-xmark"></i></a>
+								</div>
+								<div class="card">
+									<div class="card-body">
+
+										<!-- <h6 class="custom-title">Administrative Layers</h6> -->
+										<div class="mb-1 ml-1" *ngFor="let item of layerList">
+											<span class="img-combined legend-color-code"
+												[style]="item.values_.stroke"></span>{{item.values_.desc}}</div>
+										<!-- <div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>Village
+											Boundary</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>Plot
+											Boundary</div> -->
+
+										<!-- <h6 class="custom-title mt-2">Reference Layers</h6>
+										<p class="mb-0"><strong>Road Network</strong></p>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>NH</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>SH</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>MDR</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>ODR</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>RD</div>
+										<p class="mb-0"><strong>Eco Sensitive Zone</strong></p>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>Bhitarkanika Sanctuary
+											Boundary 2020</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>Gahirmatha
+											Sanctuary Boundary</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>BKGM
+											Combined ESZ Old</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>BKGM
+											Combined ESZ 2021 Draft</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>BKGM
+											Combined ESZ S.C. 2022</div>
+										<p class="mb-0"><strong>Water Bodies</strong></p>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>River
+										</div>
+										<div class="mb-1 ml-1"><span class="img-combined legend-color-code" style="background-color:#c6cb37;"></span>Drainage
+										</div> -->
+
+									</div>
+								</div>
+							</div>
+
+							<!-- Measurement Toggle -->
+							<div id="mapMeasurementContent" style="display:none">
+								<div class="card-custom">
+									<ul class="dropdown-menu-custom">
+										<li>
+											<a href="javascript:void(0)" class="mapMeasurement" data-toggle="tooltip"
+												title="Area" (click)="measurement('LineString')">
+												<img src="assets/images/icons/measurement_area.png" class="img-sm">
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="mapMeasurement" data-toggle="tooltip"
+												title="Polygon" (click)="measurement('Polygon')">
+												<img src="assets/images/icons/measurement_polygon.png" class="img-sm">
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="mapMeasurement" data-toggle="tooltip"
+												title="Clear" (click)="measurement('clear')">
+												<img src="assets/images/icons/clear.png" class="img-sm">
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<!-- Map Viewer -->
+							<div class="card-map-viewer" id="map">
+								<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119743.53374944824!2d85.75041271337584!3d20.300870219682118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1909d2d5170aa5%3A0xfc580e2b68b33fa8!2sBhubaneswar%2C%20Odisha!5e0!3m2!1sen!2sin!4v1636099521755!5m2!1sen!2sin" width="100%" height="100%" loading="lazy"></iframe> -->
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>
+<div id="popup" class="ol-popup">
+	<a href="javascript:void(0)" id="popup-closer" class="ol-popup-closer"></a>
+	<div id="popup-content"></div>
+	<div class="p-1"><a href="javascript:void(0)" class="text-primary" (click)="zoomify()">Zoom to&nbsp;<i
+				class="fa fa-magnifying-glass-plus"></i></a></div>
+</div>

@@ -1,0 +1,202 @@
+<app-masterheader></app-masterheader>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">
+								Lease Case
+								<!-- <button type="button" data-toggle="modal" data-target="#modalCreateLease" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus">&nbsp;</i>Create Lease Case</button> -->
+							</h4>
+							<div class="row">
+								<div class="col-md-1 mt-2">
+									<label>Select Phase :</label>
+								</div>
+								<div class="col-md-2">
+									<select class="form-control" (change)="onPhaseSelectAll($event)">
+										<option value="0">-- Select Phase --</option>
+										<option value="Phase 1">Phase 1</option>
+										<option value="Phase 2">Phase 2</option>
+									</select>
+								</div>
+								<div class="col-md-1 mt-2">
+									<label>Village :</label>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" (change)="onVillageSelect(selectedVillage.value)"
+										#selectedVillage>
+										<option selected value="0">-- Select Village --</option>
+										<option *ngFor="let item of getVillageData" value="{{stringify(item)}}">
+											{{item.village}}</option>
+									</select>
+								</div>
+								<div class="col-md-1 mt-2">
+									<label>Land Class :</label>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" [(ngModel)]="landClassData">
+										<option selected value="0">-- Select Land Class --</option>
+										<option *ngFor="let item of getLandClassData">{{item.landClass}}</option>
+									</select>
+								</div>
+								<div class="col-md-1">
+									<button class="btn btn-green" (click)="searchData()"><i
+											class="fa fa-search">&nbsp;</i>Search</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="table-responsive">
+								<table class="table table-sm table-bordered row-border mb-0" id="leaseCaseDatatable"
+									[dtTrigger]="dtTrigger" [dtOptions]="dtOptions" datatable>
+									<thead>
+										<tr>
+											<th width="5%"><input type="checkbox" id="check_all"
+													(click)="allCheck($event)" /></th>
+											<th>Plot No.</th>
+											<th>Khata No.</th>
+											<th>Kissam</th>
+											<th>RoR Area (Acre)</th>
+											<th>Required Area (Acre)</th>
+											<th>Lease Case No.</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let item of fetchLandData">
+											<td><input type="checkbox" name="row-check" id="check_primary"
+													[value]="item.gid" (click)="primaryCheck($event)"></td>
+											<td class="text-right">{{item.plotNo}}</td>
+											<td class="text-right">{{item.khataNo}}</td>
+											<td>{{item.kissam}}</td>
+											<td class="text-right">{{item.rorArea}}</td>
+											<td class="text-right">{{item.reqareaac}}</td>
+											<td>{{item.leaseCase}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<hr>
+							<div class="text-center">
+								<button class="btn btn-indigo" data-toggle="modal" #control
+									data-target="#modalAssignLease" [disabled]="checkBoxChecked">Assign Lease
+									Case</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>
+
+<!-- Modal Add Lease Case -->
+<!-- <div class="modal fade" id="modalCreateLease" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Create Lease Case</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="row">
+						<div class="col-md-12 form-group">
+							<label>Village :</label>
+							<select class="form-control">
+								<option selected="selected" value="0">-- Select Village --</option>
+								<option value="1">Sand</option>
+								<option value="2">Mud</option>
+							</select>
+						</div>
+						<div class="col-md-12 form-group">
+							<label>Land Class :</label>
+							<select class="form-control">
+								<option selected="selected" value="0">-- Select Land Class --</option>
+								<option value="1">Sand</option>
+								<option value="2">Mud</option>
+							</select>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="btn btn-primary">Create</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<!-- Manage Add Lease Case -->
+<div class="modal fade" id="modalAssignLease" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Assign Lease Case</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="assignLeaseCase" (ngSubmit)="assignLeaseCaseNo()">
+					<div class="row">
+						<div class="col-md-12 form-group">
+							<label>Enter Lease Case No. :</label>
+							<input type="text" class="form-control" formControlName="leaseCaseNo"
+								placeholder="Enter Lease Case No." />
+							<!-- <span style="color: red"
+								[hidden]="assignLeaseCase.controls['leaseCaseNo'].untouched || assignLeaseCase.controls['leaseCaseNo'].valid ">Please
+								Enter The Lease Case No.</span> -->
+						</div>
+						<div class="col-md-12 form-group">
+							<label>Start
+								Date :</label>
+							<div>
+								<input class="form-control" type="date" name="datee" formControlName="datee" />
+							</div>
+							<!-- <span style="color: red"
+								*ngIf="assignLeaseCase.controls['datee'].touched && assignLeaseCase.controls['datee'].invalid ">Please
+								Select The Date</span> -->
+						</div>
+						<div class="col-md-12">
+							<label>Upload Lease Document :</label>
+							<input type="file" class="form-control" name="file" id="file"
+								placeholder="Upload Lease Document" (change)="onFileSelect($event)" />
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="btn btn-green" [disabled]="assignLeaseCase.invalid">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

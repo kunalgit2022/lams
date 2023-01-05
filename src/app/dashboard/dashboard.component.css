@@ -1,0 +1,73 @@
+
+.min-hgt-1{
+	min-height: 455px;
+}
+.min-hgt-2{
+	min-height: 420px;
+}
+.color-govt{
+	color: #ffa500;
+}
+.color-private{
+	color: #008000;
+}
+.color-forest{
+	color: #4a90d7;
+}
+.color-not-started{
+	color: #f35f55;
+}
+.color-initial{
+	color: #4a90d7;
+}
+.color-processing{
+	color: #ffa500;
+}
+.color-final{
+	color: #008000;
+}
+
+
+
+/*--------- Toggle Button ---------*/
+
+.radio {
+    background: #cdcdcf;
+    padding: 2px;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 3px rgba(35, 33, 45, 0.3),
+      0 0 0 3px rgba(185, 185, 185, 0.3);
+    position: relative;
+    top: 1px;
+    display: inline-block;
+}
+
+.radio input {
+    width: auto;
+    height: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 2px 8px;
+    background: #515258;
+    color: #c6c6c6;
+    font-size: inherit;
+    transition: all 100ms linear;
+}
+
+.radio input:checked {
+    background-image: linear-gradient(180deg, #2ee152, #0db52f);
+    color: #fff;
+    box-shadow: 0 1px 1px #0000002e;
+    text-shadow: 0 1px 0px #79485f7a;
+}
+
+.radio input:before {
+    content: attr(label);
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}

@@ -1,0 +1,117 @@
+<!-- <div class="loaders-wrapper">
+	<div class="loader">
+		<div class="loader-pulse"></div>
+	</div>
+</div> -->
+
+<section class="bg-home">
+	<div class="row">
+		<div class="col-md-8 bg-slide">
+		  <div class="particle particle-1"></div>
+		  <div class="particle particle-2"></div>
+		  <div class="particle particle-3"></div>
+		  <div class="particle particle-4"></div>
+		</div>
+		<div class="col-md-4">
+			<div class="bg-login">
+				<div class="text-center mb-5">
+					<img src="assets/images/logo.png" class="img-fluid img-logo">
+					<h4><span>Land Acquisition / Alienation Monitoring System</span></h4>
+				</div>
+				<div class="icon-login text-center">
+					<i class="fa fa-user-tie"></i>
+				</div>
+				<form class="mt-4" [formGroup]="loginForm" (ngSubmit)="login()">
+
+					<div class="row mb-3">
+						<div class="col-md-12 input-group">
+							<span class="input-group-text"><i class="fa fa-user"></i></span>
+							<input type="text" class="form-control" formControlName="userName" placeholder="User Id" />
+						</div>
+						<div class="col-md-12 ml-1 custom-validate"
+							*ngIf="loginForm.controls['userName'].hasError('required') && loginForm.controls['userName'].touched">
+							<small class="text-danger">Userid is required</small>
+						</div>
+					</div>
+					
+					<div class="row mb-3" id="show_hide_password">
+						<div class="col-md-12 input-group">
+							<span class="input-group-text"><i class="fa fa-lock"></i></span>
+							<input type="password" class="form-control" formControlName="password" placeholder="Password"
+								id="password" />
+							<div class="input-group-addon">
+								<a href="javascript:void(0)" class="text-muted"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+							</div>
+						</div>
+						<div class="col-md-12 ml-1 custom-validate"
+							*ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
+							<small class="text-danger">Password is required</small>
+						</div>
+					</div>
+
+					<p class="text-center">
+						<a href="javascript:void(0)" data-toggle="modal"
+							data-target="#modalForgotPassword"><i class="fa fa-key">&nbsp;</i>Forgot Password?</a>
+					</p>
+
+					<div class="mb-3 text-center">
+						<button type="submit" class="btn btn-login" [disabled]="loginForm.invalid">LOGIN</button>
+					</div>
+
+				</form>
+				<p class="text-center mb-1">
+					<small><br>Design & Developed by <a href="https://sparcindia.com" target="_blank">SPARC (P) Ltd. </a></small>
+				</p>
+				<p class="text-center" data-toggle="modal" data-target="#modalPrivacyPolicy">
+					<small><a href="javascript:void(0)"><i class="fa fa-shield">&nbsp;</i>Privacy Policy</a></small>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Modal Forgot Password -->
+<div class="modal fade" id="modalForgotPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Forgot Password</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="modal-login">
+					<div class="input-group">
+						<span class="input-group-text"><i class="fa fa-envelope"></i></span>
+						<input type="email" class="form-control" placeholder="Email ID" />
+					</div>
+					<hr>
+					<div class="text-center">
+						<button class="btn btn-login">SUBMIT</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Forgot Password -->
+<div class="modal fade" id="modalPrivacyPolicy" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-md" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Privacy Policy</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Land Acquisition / Alienation Monitoring System is committed to ensuring that your privacy is protected and your information is secure. The data that you provide by which you can be identified when using this website will be kept strictly confidential.</p>
+				<p class="mb-0">Policy may change from time to time and notified in this page. In order to prevent unauthorised access or disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.</p>
+			</div>
+		</div>
+	</div>
+</div>

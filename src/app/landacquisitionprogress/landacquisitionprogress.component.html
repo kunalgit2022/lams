@@ -1,0 +1,223 @@
+
+<app-masterheader></app-masterheader>
+
+<div class="wrapper">
+
+	<app-sidebar></app-sidebar>
+
+	<div id="content">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="custom-title">
+								Land Acquisition Progress
+							</h4>
+							<form>
+								<div class="row">
+									<div class="col-md-11">
+										<div class="row">
+											<div class="col-md-1 mt-2">
+												<label>Phase :</label>
+											</div>
+											<div class="col-md-3">
+												<select class="form-control">
+													<option selected="selected" value="0">-- Select Phase --</option>
+													<option value="1">Sand</option>
+													<option value="2">Mud</option>
+												</select>
+											</div>
+											<div class="col-md-1 mt-2">
+												<label>Land Class :</label>
+											</div>
+			                                <div class="col-md-3">
+												<select class="form-control">
+													<option selected="selected" value="0">-- Select Land Class --</option>
+													<option value="1">Sand</option>
+													<option value="2">Mud</option>
+												</select>
+											</div>
+											<div class="col-md-1 mt-2">
+												<label>Village :</label>
+											</div>
+			                                <div class="col-md-3">
+												<select class="form-control">
+													<option selected="selected" value="0">-- Select Village --</option>
+													<option value="1">Sand</option>
+													<option value="2">Mud</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-1">
+										<button class="btn btn-green"><i class="fa fa-circle-right">&nbsp;</i>Proceed</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="table-responsive">
+								<table class="table table-sm table-bordered row-border mb-0" id="landProgressDatatable">
+									<thead>
+										<tr>
+											<th>Sl. No.</th>
+											<th>Village</th>
+											<th>Land Class</th>
+											<th>Lease Case No.</th>
+											<th>Total Plots</th>
+											<th>Total Khata</th>
+											<th>Proposed Area (Acre)</th>
+											<th>Current Stage</th>
+											<th>Planned Date</th>
+											<th>Delayed in Days</th>
+											<th>Expected Date</th>
+											<th width="8%">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>Banamali Pur</td>
+											<td>Leasable</td>
+											<td class="text-right">01/23</td>
+											<td class="text-right">117</td>
+											<td class="text-right">123</td>
+											<td class="text-right">404.28</td>
+											<td>L4</td>
+											<td>20.11.2022</td>
+											<td class="text-right">4</td>
+											<td>28.11.2022</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-green btn-icon" data-toggle-second="tooltip" title="Previous Action Taken" [routerLink]="['/landacquisitionprogressview']">
+													<i class="fa fa-eye"></i>
+												</button>
+												<button type="button" class="btn btn-sm btn-indigo btn-icon" data-toggle-second="tooltip" title="Take Action" data-toggle="modal" data-target="#modalTakeAction">
+													<i class="fa fa-arrow-rotate-right"></i>
+												</button>
+											</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>Duhuria</td>
+											<td>Leasable</td>
+											<td class="text-right">04/54</td>
+											<td class="text-right">124</td>
+											<td class="text-right">137</td>
+											<td class="text-right">384.75</td>
+											<td>L4</td>
+											<td>16.11.2022</td>
+											<td class="text-right">4</td>
+											<td>22.11.2022</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-green btn-icon" data-toggle-second="tooltip" title="Previous Action Taken" [routerLink]="['/landacquisitionprogressview']">
+													<i class="fa fa-eye"></i>
+												</button>
+												<button type="button" class="btn btn-sm btn-indigo btn-icon" data-toggle-second="tooltip" title="Take Action" data-toggle="modal" data-target="#modalTakeAction">
+													<i class="fa fa-arrow-rotate-right"></i>
+												</button>
+											</td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>Nipania</td>
+											<td>Leasable</td>
+											<td class="text-right">11/22</td>
+											<td class="text-right">153</td>
+											<td class="text-right">172</td>
+											<td class="text-right">342.15</td>
+											<td>L4</td>
+											<td>08.11.2022</td>
+											<td class="text-right">4</td>
+											<td>15.11.2022</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-green btn-icon" data-toggle-second="tooltip" title="Previous Action Taken" [routerLink]="['/landacquisitionprogressview']">
+													<i class="fa fa-eye"></i>
+												</button>
+												<button type="button" class="btn btn-sm btn-indigo btn-icon" data-toggle-second="tooltip" title="Take Action" data-toggle="modal" data-target="#modalTakeAction">
+													<i class="fa fa-arrow-rotate-right"></i>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<app-masterfooter></app-masterfooter>
+	</div>
+</div>
+
+<!-- Modal Take Action -->
+<div class="modal fade" id="modalTakeAction" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Take Action</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="mb-2">
+					<strong>Phase : </strong><span>Phase 1,</span>&nbsp;
+					<strong>Land Class : </strong><span>Leasable,</span>&nbsp;
+					<strong>Village : </strong><span>Nipania,</span>&nbsp;
+					<strong>Lease Case : </strong><span>11/22,</span>&nbsp;
+				</div>
+				<div class="mb-2">
+					<span class="badge rounded-pill badge-dark"><strong>Ticket No. : </strong>4111578122</span>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<textarea class="form-control" rows="5" placeholder="Write Action Note"></textarea>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4 mt-2">
+						<label>Upload Supporting Document (if any) :</label>
+					</div>
+					<div class="col-md-8">
+						<input type="file" class="form-control" placeholder="Upload Supporting Document">
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4 mt-2">
+						<label>Send Alert to :</label>
+					</div>
+					<div class="col-md-8">
+						<select class="form-control">
+							<option selected="selected">-- Select User --</option>
+							<option>User 1</option>
+							<option>User 2</option>
+						</select>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<button class="btn btn-indigo">Create</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
